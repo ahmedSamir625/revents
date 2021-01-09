@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
+import 'semantic-ui-css/semantic.min.css'; // ktbtha fo2 l import bta3 l css bta3y 34an 22dr a override l sctyle bta3 semantic 
 import "./app/layout/styles.css";
+
 import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 
