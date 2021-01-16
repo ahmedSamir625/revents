@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Button,
   Icon,
@@ -10,7 +11,7 @@ import {
 
 import EventListAttendee from "./EventListAttendee";
 
-const EventListItem = ({ event }) => {
+const EventListItem = ({ event, deleteEvent }) => {
   return (
     <div style={{ marginBottom: "10px" }}>
       <SegmentGroup>
@@ -19,7 +20,7 @@ const EventListItem = ({ event }) => {
             <Item>
               <Item.Image size="tiny" circular src={event.hostPhotoURL} />
               <Item.Content>
-                <Item.Header content="Event Header" />
+                <Item.Header content={event.title} />
                 <Item.Description>Hosted by {event.hostedBy}</Item.Description>
               </Item.Content>
             </Item>
@@ -40,8 +41,21 @@ const EventListItem = ({ event }) => {
         </Segment>
 
         <Segment clearing>
-          <div>{event.description}</div>
-          <Button color="teal" floated="right" content="View" />
+          <div style={{ marginBottom: "10px" }}>{event.description}</div>
+          <Button
+            onClick={() => deleteEvent(event.id)}
+            floated="right"
+            content="Delete"
+            negative
+          />
+
+          <Button
+            as={Link}
+            to={`/events/${event.id}`}
+            color="teal"
+            floated="right"
+            content="View"
+          />
         </Segment>
       </SegmentGroup>
     </div>
