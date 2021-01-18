@@ -7,6 +7,9 @@ import "./app/layout/styles.css";
 import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { configureStore } from "./app/store/configureStore";
+import ScrollToTop from "./app/layout/ScrollToTop";
 
 // ReactDOM.render(
 //   // <React.StrictMode>
@@ -16,12 +19,16 @@ import { BrowserRouter } from "react-router-dom";
 // );
 
 const rootEl = document.getElementById("root");
+const store = configureStore();
 
 function render() {
   ReactDOM.render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>,
+    <Provider store={store}>
+      <BrowserRouter>
+        <ScrollToTop />
+        <App />
+      </BrowserRouter>
+    </Provider>,
 
     rootEl
   );

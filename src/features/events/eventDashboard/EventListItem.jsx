@@ -8,10 +8,13 @@ import {
   Segment,
   SegmentGroup,
 } from "semantic-ui-react";
-
+import { deleteEvent } from "../eventsActions";
+import { useDispatch } from "react-redux";
 import EventListAttendee from "./EventListAttendee";
 
-const EventListItem = ({ event, deleteEvent }) => {
+const EventListItem = ({ event }) => {
+  const dispatch = useDispatch();
+
   return (
     <div style={{ marginBottom: "10px" }}>
       <SegmentGroup>
@@ -43,7 +46,7 @@ const EventListItem = ({ event, deleteEvent }) => {
         <Segment clearing>
           <div style={{ marginBottom: "10px" }}>{event.description}</div>
           <Button
-            onClick={() => deleteEvent(event.id)}
+            onClick={() => dispatch(deleteEvent(event.id))}
             floated="right"
             content="Delete"
             negative
