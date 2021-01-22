@@ -8,15 +8,17 @@ import HomePage from "../../features/home/HomePage";
 import EventForm from "../../features/events/eventFrom/EventForm";
 import EventDetailedPage from "../../features/events/eventDetailed/EventDetailedPage";
 import Sandbox from "../../features/sandBox/Sandbox";
+import ModalManager from "../common/modals/ModalManager";
 
 function App() {
-  const {key} = useLocation();
+  const { key } = useLocation();
 
   return (
     <>
       {/* L compnents bs eli m7tota f route hya eli byb2a leha "history" property */}
-      <Route exact path="/" component={HomePage} />
 
+      <ModalManager />
+      <Route exact path="/" component={HomePage} />
       <Route
         path={"/(.+)"}
         render={() => (
@@ -29,7 +31,7 @@ function App() {
               <Route
                 path={["/createEvent", "/manage/:id"]}
                 component={EventForm}
-                key={key }
+                key={key}
               />
             </Container>
           </>
