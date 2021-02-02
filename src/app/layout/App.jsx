@@ -5,10 +5,12 @@ import EventDashboard from "../../features/events/eventDashboard/EventDashboard"
 import NavBar from "../../features/nav/NavBar";
 
 import HomePage from "../../features/home/HomePage";
-import EventForm from "../../features/events/eventFrom/EventForm";
+import EventForm from "../../features/events/eventForm/EventForm";
 import EventDetailedPage from "../../features/events/eventDetailed/EventDetailedPage";
 import Sandbox from "../../features/sandBox/Sandbox";
 import ModalManager from "../common/modals/ModalManager";
+import { ToastContainer } from "react-toastify";
+import ErrorComponent from "../common/errors/ErrorComponent";
 
 function App() {
   const { key } = useLocation();
@@ -18,6 +20,7 @@ function App() {
       {/* L compnents bs eli m7tota f route hya eli byb2a leha "history" property */}
 
       <ModalManager />
+      <ToastContainer position="bottom-right" hideProgressBar draggable />
       <Route exact path="/" component={HomePage} />
       <Route
         path={"/(.+)"}
@@ -33,6 +36,7 @@ function App() {
                 component={EventForm}
                 key={key}
               />
+              <Route path="/error" component={ErrorComponent} />
             </Container>
           </>
         )}
