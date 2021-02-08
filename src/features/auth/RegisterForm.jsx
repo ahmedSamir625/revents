@@ -7,33 +7,35 @@ import { Button, Divider, Label } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 
 import { closeModal } from "../../app/common/modals/modalReducer";
-import { signInWithEmail } from "../../app/firestore/firebaseService";
+import { registerInFirebase } from "../../app/firestore/firebaseService";
 import SocialLogin from "./SocialLogin";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const dispatch = useDispatch();
   return (
-    <ModalWrapper size="mini" header="Sign in to Re-vents">
+    <ModalWrapper size="mini" header="Register to Re-vents">
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ displayName: "", email: "", password: "" }}
         validationSchema={Yup.object({
+          displayName: Yup.string().required(),
           email: Yup.string().required().email(),
           password: Yup.string().required().min(8),
         })}
         //setSubmitting is a Formik prop that allow us to handle the loading ..
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           try {
-            await signInWithEmail(values); // dy 3l service eli ht5li 3ndy user fl firebase store bta3 l browser f l verifyAuth() ht listen 3l t8yeer da w t2ol ndha 3la signInUser() Action
+            await registerInFirebase(values); // dy 3l service eli ht5li 3ndy user fl firebase store bta3 l browser f l verifyAuth() ht listen 3l t8yeer da w t2ol ndha 3la signInUser() Action
             setSubmitting(false);
             dispatch(closeModal());
           } catch (error) {
-            setErrors({ auth: "Invalid email or password." });
+            setErrors({ auth: error.message });
             setSubmitting(false);
           }
         }}
       >
         {({ isValid, isSubmitting, dirty, errors }) => (
           <Form className="ui form">
+            <MyTextInput name="displayName" placeholder="Display Name" />
             <MyTextInput name="email" placeholder="Email Address" />
             <MyTextInput
               name="password"
@@ -55,7 +57,7 @@ const LoginForm = () => {
               type="submit"
               fluid
               color="teal"
-              content="Login"
+              content="Register"
             />
             <Divider horizontal>OR</Divider>
             <SocialLogin />
@@ -66,4 +68,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
