@@ -10,7 +10,7 @@ const SignedInMenu = () => {
   // const history = useHistory(); // dy bt5leni 22dr ast5dm history lel compnents eli msh m7tota f route
   const history = useHistory();
 
-  const { currentUser } = useSelector((state) => state.auth);
+  const { currentUserProfile } = useSelector((state) => state.profile);
 
   const handleSignOut = async () => {
     try {
@@ -23,9 +23,17 @@ const SignedInMenu = () => {
 
   return (
     <Menu.Item position="right">
-      <Image avatar spaced src={currentUser.photoURL} />
+      <Image
+        avatar
+        spaced
+        src={
+          currentUserProfile.photoURL
+            ? currentUserProfile.photoURL
+            : "/assets/user.png"
+        }
+      />
 
-      <Dropdown pointing="top left" text={currentUser.displayName}>
+      <Dropdown pointing="top left" text={currentUserProfile.displayName}>
         <Dropdown.Menu>
           <Dropdown.Item
             as={Link}
@@ -33,7 +41,12 @@ const SignedInMenu = () => {
             text="Create Event"
             icon="plus"
           />
-          <Dropdown.Item text="My Profile" icon="user" />
+          <Dropdown.Item
+            as={Link}
+            to={`/profile/${currentUserProfile.id}`}
+            text="My Profile"
+            icon="user"
+          />
           <Dropdown.Item
             as={Link}
             to="/account"

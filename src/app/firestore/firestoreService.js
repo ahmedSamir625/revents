@@ -59,7 +59,7 @@ export const cancelEventToggle = (event) => {
 
 export const setUserProfileData = (user) => {
   return db
-    .collection("user")
+    .collection("users")
     .doc(user.uid)
     .set({
       displayName: user.displayName,
@@ -67,4 +67,23 @@ export const setUserProfileData = (user) => {
       photoURL: user.photoURL || null,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
+};
+
+export const getUserProfile = (userId) => {
+  return db.collection("users").doc(userId);
+};
+
+export const UpdateUserProfile = async (profile) => {
+  const user = firebase.auth().currentUser;
+
+  try {
+    if (user.displayName !== profile.dispayName) {
+      await user.updateProfile({
+        displayName: profile.dispayName,
+      });
+    }
+    return await db.collection("users").doc(user.uid).update(profile);
+  } catch (error) {
+    throw error;
+  }
 };
