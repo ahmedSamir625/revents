@@ -30,7 +30,10 @@ const ProfilePage = ({ match }) => {
           profile={selectedUserProfile}
           isCurrentUser={currentUser.uid === selectedUserProfile.id}
         />
-        <ProfileContent profile={selectedUserProfile} isCurrentUser={currentUser.uid === selectedUserProfile.id} />
+        <ProfileContent
+          profile={selectedUserProfile}
+          isCurrentUser={currentUser.uid === selectedUserProfile.id}
+        />
       </Grid.Column>
     </Grid>
   );
