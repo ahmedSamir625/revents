@@ -11,7 +11,7 @@ import {
 } from "semantic-ui-react";
 import EventListAttendee from "./EventListAttendee";
 import { format } from "date-fns";
-import { deleteeEventFromFirestore } from "../../../app/firestore/firestoreService";
+import { deleteEventFromFirestore } from "../../../app/firestore/firestoreService";
 
 const EventListItem = ({ event }) => {
   return (
@@ -20,10 +20,10 @@ const EventListItem = ({ event }) => {
         <Segment>
           <Item.Group>
             <Item>
-              <Item.Image size="tiny" circular src={event.hostPhotoURL} />
+              <Item.Image as={Link} to={`/profile/${event.hostUid}`} size="tiny" circular src={event.hostPhotoURL} />
               <Item.Content>
                 <Item.Header content={event.title} />
-                <Item.Description>Hosted by {event.hostedBy}</Item.Description>
+                <Item.Description>Hosted by <Link to={`/profile/${event.hostUid}`}>{event.hostedBy}</Link></Item.Description>
                 {event.isCancelled && (
                   <Label
                     content="Cancelled"
@@ -53,7 +53,7 @@ const EventListItem = ({ event }) => {
         <Segment clearing>
           <div style={{ marginBottom: "10px" }}>{event.description}</div>
           <Button
-            onClick={() => deleteeEventFromFirestore(event.id)}
+            onClick={() => deleteEventFromFirestore(event.id)}
             floated="right"
             content="Delete"
             negative
