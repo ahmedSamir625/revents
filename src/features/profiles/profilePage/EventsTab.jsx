@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Card, Grid, Header, Image, Tab } from "semantic-ui-react";
+import { Card, Grid, Header, Image, Label, Tab } from "semantic-ui-react";
 import { getUserEventsQuery } from "../../../app/firestore/firestoreService";
 import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
 import { listenToUserEvents } from "../profileActions";
@@ -41,6 +41,14 @@ const EventsTab = ({ profile }) => {
           <Card.Group itemsPerRow={5} style={{ marginTop: 10 }}>
             {profileEvents.map((event) => (
               <Card as={Link} to={`/events/${event.id}`} key={event.id}>
+                {event.hostUid === profile.id && (
+                  <Label
+                    corner="right"
+                    size="mini"
+                    icon="user outline"
+                    color="green"
+                  />
+                )}
                 <Image
                   src={`/assets/categoryImages/${event.category}.jpg`}
                   style={{ minHeight: 100, objectFit: "cover" }}

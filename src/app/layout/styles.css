@@ -30,8 +30,7 @@ body {
   font-size: 4em;
 }
 
-.masthead.ui.segment {
-  /* background-color: rgb(8, 122, 163); */
+/* .masthead.ui.segment {
 
   background-image: linear-gradient(
     135deg,
@@ -39,7 +38,7 @@ body {
     rgb(33, 138, 174) 69%,
     rgb(32, 167, 172) 89%
   );
-}
+} */
 
 .react-datepicker-wrapper {
   width: 100%;
@@ -50,4 +49,22 @@ body {
   border: none;
   padding: 20px;
   box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+}
+
+
+
+.particles{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index:-1;
+
+  background-image: linear-gradient(
+    135deg,
+    rgb(17, 35, 110) 0%,
+    rgb(33, 138, 174) 69%,
+    rgb(32, 167, 172) 89%
+  );
 }

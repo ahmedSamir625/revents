@@ -34,7 +34,7 @@ const AboutTab = ({ profile, isCurrentUser }) => {
             <>
               <div style={{ marginBottom: 10 }}>
                 <strong>
-                  Member Since: {format(profile.createdAt, "dd MM yy")}
+                  Member Since: {format(profile.createdAt, "MMMM d, yyyy")}
                 </strong>
                 <div>{profile.description || null}</div>
               </div>

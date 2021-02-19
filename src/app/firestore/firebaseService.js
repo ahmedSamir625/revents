@@ -2,6 +2,14 @@ import { toast } from "react-toastify";
 import firebase from "../config/firebase";
 import { setUserProfileData } from "./firestoreService";
 
+export const firebaseObjectToArray = (snapshot) => {
+  if (snapshot) {
+    return Object.entries(snapshot).map((e) =>
+      Object.assign({}, e[1], { id: e[0] })
+    );
+  }
+};
+
 export const signInWithEmail = (creds) => {
   return firebase
     .auth()
@@ -56,10 +64,32 @@ export const uploadToFirebaseStorage = (file, filename) => {
   return storageRef.child(`${user.uid}/user_images/${filename}`).put(file);
 };
 
-export const deleteFromFirebaseStorage = (filename)=>{
-  const userUid = firebase.auth().currentUser.uid
-  const storageRef = firebase.storage().ref()
-  const photoRef = storageRef.child(`${userUid}/user_images/${filename}`)
+export const deleteFromFirebaseStorage = (filename) => {
+  const userUid = firebase.auth().currentUser.uid;
+  const storageRef = firebase.storage().ref();
+  const photoRef = storageRef.child(`${userUid}/user_images/${filename}`);
 
-  return photoRef.delete()
-}
+  return photoRef.delete();
+};
+
+//----------------chat service using realtime database "firebase"
+
+export const addEventChatComment = (eventId, values) => {
+  const user = firebase.auth().currentUser;
+
+  const newComment = {
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    uid: user.uid,
+    text: values.comment,
+    date: Date.now(),
+    parentId: values.parentId,
+  };
+
+  return firebase.database().ref(`chat/${eventId}`).push(newComment);
+};
+
+export const getEventChatRef = (eventId) => {
+  // l key "hwa l id" fl realtime bykon timestamp
+  return firebase.database().ref(`chat/${eventId}`).orderByKey();
+};

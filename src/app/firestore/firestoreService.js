@@ -219,6 +219,6 @@ export const getUserEventsQuery = (filterBy, userUid) => {
       return eventsRef.where("hostUid", "==", userUid).orderBy("date");
 
     default: //all 
-      return eventsRef.orderBy("date");
+      return eventsRef.orderBy("date").where("attendeeIds", "array-contains", userUid);
   }
 };
